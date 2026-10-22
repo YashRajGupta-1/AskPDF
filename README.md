@@ -75,6 +75,8 @@ Retrieval is scored on a fixed question set: **6/7 queries return the correct ch
 
 ## 🧠 Architecture
 
+![System Architecture](assets/architecture.png)
+
 ```text
                  ┌──────────────┐
                  │   PDF file   │
@@ -176,6 +178,16 @@ Evaluated on a multi-page assignment PDF, 7 questions:
 
 ---
 
+## 🔮 Future Plans
+
+- [ ] **Eval harness** — automated scoreboard over a fixed question set (recall@k), so chunking and retrieval tweaks are judged by numbers, not vibes
+- [ ] **Resume analyzer mode** — rubric-driven resume scoring endpoint (`POST /analyze`), dogfooded on real resumes
+- [ ] **Reranker** — cross-encoder rerank on top of HNSW retrieval for harder queries
+- [ ] **React UI** — replace the static page with a proper frontend (upload progress, chat-style Q&A)
+- [ ] **Deployment** — public demo instance (HuggingFace Spaces)
+
+---
+
 ## 🔌 API
 
 | Method | Endpoint | Description |
@@ -188,9 +200,42 @@ A single-page UI is served at `/`.
 
 ---
 
+## 📁 Project Structure
+
+```text
+AskPDF/
+├── app/
+│   ├── main.py            # FastAPI app: endpoints + background ingestion
+│   └── static/
+│       └── index.html     # single-page UI
+├── pipeline/
+│   ├── ingest.py          # PDF text extraction (PyMuPDF)
+│   ├── chunk.py           # overlapping chunking, page + chunk_id tags
+│   ├── embed.py           # all-MiniLM-L6-v2 embeddings (384-dim)
+│   ├── store.py           # ChromaDB vector store
+│   ├── retrieve.py        # HNSW semantic search
+│   └── generate.py        # Groq LLM grounded generation
+├── test_*.py              # per-stage sanity tests
+├── requirements.txt
+├── .env                   # GROQ_API_KEY (never committed)
+└── README.md
+```
+
+---
+
 ## 🖼️ Screenshots
 
-![AskPDF UI](assets/ui.png)
+### 1. Upload a PDF
+
+![Upload](assets/upload.jpeg)
+
+### 2. Ready to ask
+
+![Processing](assets/processing.jpeg)
+
+### 3. Grounded answer with citations
+
+![Result](assets/result.jpeg)
 
 ---
 
@@ -203,3 +248,12 @@ uvicorn app.main:app --reload
 ```
 
 Open `http://localhost:8000`, upload a PDF, and ask away.
+
+---
+
+## 👤 Author
+
+**Yash Raj Gupta**
+B.Tech Mechanical Engineering (2024–2028), IIT (BHU) Varanasi
+
+- GitHub: [@YashRajGupta-1](https://github.com/YashRajGupta-1)
