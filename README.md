@@ -75,7 +75,7 @@ Retrieval is scored on a fixed question set: **6/7 queries return the correct ch
 
 ## 🧠 Architecture
 
-![System Architecture](assets/architecture.png)
+![System Architecture](assets/architecture.jpeg)
 
 ```text
                  ┌──────────────┐
@@ -254,6 +254,6 @@ Open `http://localhost:8000`, upload a PDF, and ask away.
 ## 👤 Author
 
 **Yash Raj Gupta**
-B.Tech Mechanical Engineering (2024–2028), IIT (BHU) Varanasi
+B.Tech, IIT (BHU) Varanasi
 
 - GitHub: [@YashRajGupta-1](https://github.com/YashRajGupta-1)
